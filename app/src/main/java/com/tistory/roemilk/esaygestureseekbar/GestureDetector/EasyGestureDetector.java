@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 public class EasyGestureDetector implements GestureDetector.OnGestureListener{
     private static final String TAG = "FensterGestureListener";
 
-    private int SWIPE_THRESHOLD = 100; //min scroll distance..
+    private int SWIPE_THRESHOLD = 1; //min scroll distance..
 
     private Context mContext;
     private EsayGestureListener mEsayGestureListener = null;

@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.tistory.roemilk.esaygestureseekbar.GestureDetector.EasyGestureDetector;
 import com.tistory.roemilk.esaygestureseekbar.GestureDetector.EsayGestureListener;
 
+import redpig.utility.media.MediaUtils;
+
 public class MainActivity extends AppCompatActivity implements EsayGestureListener{
     public static final String TAG = "MainActivity";
 
@@ -63,8 +65,11 @@ public class MainActivity extends AppCompatActivity implements EsayGestureListen
         if(mGestureTextView.getVisibility() != View.VISIBLE){
             mGestureTextView.setVisibility(View.VISIBLE);
         }
-        mGestureTextView.setText("" + mScaleProgress);
-        Log.d(TAG, "ScaleProgress : " + mScaleProgress);
+
+        String hms = MediaUtils.getMillSecToHMS(mScaleProgress * 1000);
+
+        mGestureTextView.setText("" + hms);
+        Log.d(TAG, "ScaleProgress : " + hms);
     }
 
     private int extractDeltaScale(int availableSpace, float deltaX, SeekBar seekbar) {
@@ -80,7 +85,12 @@ public class MainActivity extends AppCompatActivity implements EsayGestureListen
             Log.d(TAG, "forward scroll..");
             progress += scale * max;
         }
-        return (int) progress;
+
+        if(progress < 0){
+            return 0;
+        }else{
+            return (int)progress;
+        }
     }
 
     @Override
